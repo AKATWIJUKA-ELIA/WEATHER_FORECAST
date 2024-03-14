@@ -1,11 +1,17 @@
 body {
+  background-image: url('./images/weather.JPEG');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
   font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
+  /*background-color:aquamarine;*/
   text-align: center;
   padding: 50px;
 }
 
 form {
+  height: 10%;
+  /*background-color: aqua;*/
   margin: 20px 0;
 }
 
@@ -25,20 +31,53 @@ button {
 }
 
 .forecast-container {
+  background-color:transparent;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
 
 .forecast {
-  background-color: #fff;
+  background-color: rgba(164, 253, 171, 0.7);
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
   padding: 10px;
   margin: 10px;
   width: calc(100% / 5 - 20px);
   box-sizing: border-box;
 }
+/*CSS for city_weather*/
+.weather-widget{
+  background-color: rgba(0, 0, 0, 0.4);
+  font-family: Arial, sans-serif;
+  width: 15%;
+  margin-left: 42%;
+  margin-bottom: 2%;
+  border-radius: 7%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+  border: 2px white;
+  border-width: 5px;
+}
+.weather-widget:hover{
+  background-color: rgb(50, 0, 138);
+  border-radius: 5%;
+  --s: 240px;
+  /* the size of the image */
+  --b: 2px;
+  /* the border thickness*/
+  --g: 0px;
+  /* the gap */
+  --c: rgb(65, 50, 157);
+  /* the color */
+  /*width: var(--s);*/
+  aspect-ratio: 1.5;
+  /*outline: calc(var(--s)/3.2) solid#0009;*/
+  /*outline-offset: calc(var(--s)/-2);*/
+  cursor: pointer;
+  transition: 1s;
+  outline: var(--b) solid var(--c);
+  outline-offset: var(--g);
+  }
 
 @media (max-width: 767px) {
   .forecast {

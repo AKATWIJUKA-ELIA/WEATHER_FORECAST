@@ -11,9 +11,29 @@
 
 <body>
 
-<form method="post">
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags }} alert-dismissible fade show" role ="alert">
+        <strog>
+            Message:
+        </strog> {{ message }}
+        <button type ="button" class="close" data-dismiss="alert" aria-label="close">
+        <span  aria-hidden="true"> &times;</span>
+        </button>
+    </div>
+    {%endfor %}
+
+        <div class="col bg-success">
+                <nav style="position: fixed;">
+                    <h1 style="color: white;font-size:xx-large;text-align:center;">
+                       KNOW YOUR WEATHER
+                    </h1>
+         
+                </nav>
+            </div>
+
+<form method="post" class="form-container" style="position:sticky;float:right;">
     {% csrf_token %}
-    <input type="text" name="city1" placeholder="city1">
+    <input type="text" name="city1" placeholder="city1" required>
     <input type="text" name="city2" placeholder="city2">
     <button type="submit"> Check Weather</button>
     
