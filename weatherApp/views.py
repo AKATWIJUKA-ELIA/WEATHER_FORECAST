@@ -17,9 +17,9 @@ def index(request):
         city1 = request.POST['city1']
         city2 = request.POST.get('city2', None)
          
-        weather_data1, daily_forecast1 = fetch_weather_and_forecast(city1, apikey,current_weather_url, forecast_url)
+        weather_data1, daily_forecast1 = fetch_weather_and_forecast(city1.upper(), apikey,current_weather_url, forecast_url)
         if city2:
-            weather_data2, daily_forecast2 = fetch_weather_and_forecast(city2, apikey,current_weather_url, forecast_url)
+            weather_data2, daily_forecast2 = fetch_weather_and_forecast(city2.upper(), apikey,current_weather_url, forecast_url)
         else:
             weather_data2, daily_forecast2 = None, None
         context ={
@@ -45,7 +45,9 @@ def fetch_weather_and_forecast(city,apikey, current_weather_url, forecast_url):
         forecast_response = requests.get(forecast_url.format(lat, lon, apikey)).json()
         print('forecast_response= ', forecast_response,forecast_url,apikey)
     except  KeyError as e:
-        raise  Exception ("API returned unexpected data structure.") from e
+        return  {"error":"Invalid City Name"}
+        #raise  Exception ("API returned unexpected data structure.") from e
+        
        # messages.error(request,"The city your Entered can not be Accessed")
         #return render(request, 'index.html') 
     weather_data = {
@@ -63,6 +65,7 @@ def fetch_weather_and_forecast(city,apikey, current_weather_url, forecast_url):
             "min_temp": round(daily_data['temp']['min'] - 273.15, 2),
             "max_temp": round(daily_data['temp']['max'] - 273.15, 2),
             "description": daily_data['weather'][0]['description'],
+            "summary": daily_data['summary'],
             "icon": daily_data['weather'][0]['icon'],
         })
     return weather_data, daily_forecasts

@@ -22,7 +22,7 @@ input[type="text"] {
 }
 
 button {
-  background-color: #4CAF50;
+  background-color: rgba(255, 255, 255, 0.8);
   color: white;
   padding: 5px 10px;
   border: none;
@@ -38,9 +38,9 @@ button {
 }
 
 .forecast {
-  background-color: rgba(164, 253, 171, 0.7);
+  background-color: rgba(217, 232, 218, 0.2);
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
   padding: 10px;
   margin: 10px;
   width: calc(100% / 5 - 20px);

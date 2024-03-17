@@ -5,22 +5,25 @@
 {% if weather_data %}
 <div class="weather-widget">
 <h1>{{ weather_data.city }}</h1>
-<h2>{{ weather_data.temperature }}</h2>
-<p>{{ weather_data.description }}</p>
 <img src="http://openweathermap.org/img/w/{{ weather_data.icon}}.png" alt="{{ weather_data.description }}">
+<h2 style="font-family: 'Times New Roman', Times, serif;color: darkblue;">{{ weather_data.temperature }}</h2>
+<p style="font-size: medium;color: white;">{{ weather_data.description }}</p>
+
 </div>
 {% endif %}
 
 {% if daily_forecast %}
-<h2> 5-Day Forecast</h2>
+<h2 style="font-family: 'Times New Roman', Times, serif;"> 5-Day Forecast</h2>
 
 <div class="forecast-container">
     {% for forecast in daily_forecast %}
     <div class="forecast">
-        <h3> {{ forecast.day }}</h3>
-        <p> {{ forecast.min_temp }}°C--{{ forecast.max_temp }}°C </p>
-         <p>{{ forecast.description  }}</p>
-         <img src="http://openweathermap.org/img/w/{{ weather_data.icon}}.png" alt="{{ weather_data.description }}">       
+        <h2 style="font-family: 'Times New Roman', Times, serif;color: black;"> {{ forecast.day }}</h2>
+         <img src="http://openweathermap.org/img/w/{{ weather_data.icon}}.png" alt="{{ weather_data.description }}">
+        <h3 style="font-family: 'Times New Roman', Times, serif;color: darkblue;"> {{ forecast.min_temp }}°C--{{ forecast.max_temp }}°C </h3>
+         <b><p style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">{{ forecast.description  }}</p></b>
+         <i><p style="font-family: 'Times New Roman', Times, serif;">{{ forecast.summary }}</p></i>
+               
     </div>
     {% endfor %}
     
