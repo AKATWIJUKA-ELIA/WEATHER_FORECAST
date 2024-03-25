@@ -2,36 +2,40 @@ from django.shortcuts import render
 import datetime
 import requests
 from django.contrib import messages
+from django.http import HttpResponse
 
 
 
 
 # Create your views here.
 def index(request):
-    apikey = open("J:\\GITHUB\\WEATHER_FORECAST\\weatherApp\\apikey", "r").read()
-    current_weather_url = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}"
-    forecast_url = "https://api.openweathermap.org/data/3.0/onecall?lat={}&lon={}&exclude=current,minutely,hourly,alerts&appid={}"
+    try:
+        apikey = open("D:\\HAZEL\\GITHUB\\WEATHER_FORECAST\\weatherApp\\apikey", "r").read()
+        current_weather_url = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}"
+        forecast_url = "https://api.openweathermap.org/data/3.0/onecall?lat={}&lon={}&exclude=current,minutely,hourly,alerts&appid={}"
     
     
-    if request.method == 'POST':
-        city1 = request.POST['city1']
-        city2 = request.POST.get('city2', None)
-         
-        weather_data1, daily_forecast1 = fetch_weather_and_forecast(city1.upper(), apikey,current_weather_url, forecast_url)
-        if city2:
-            weather_data2, daily_forecast2 = fetch_weather_and_forecast(city2.upper(), apikey,current_weather_url, forecast_url)
+        if request.method == 'POST':
+            city1 = request.POST['city1']
+            city2 = request.POST.get('city2', None)
+            
+            weather_data1, daily_forecast1 = fetch_weather_and_forecast(city1.upper(), apikey,current_weather_url, forecast_url)
+            if city2:
+                weather_data2, daily_forecast2 = fetch_weather_and_forecast(city2.upper(), apikey,current_weather_url, forecast_url)
+            else:
+                weather_data2, daily_forecast2 = None, None
+            context ={
+                "weather_data1":weather_data1,
+                "daily_forecast1":daily_forecast1,
+                "weather_data2":weather_data2,
+                "daily_forecast2":daily_forecast2,
+            }
+            return render(request, 'index.html', context)
+                
         else:
-            weather_data2, daily_forecast2 = None, None
-        context ={
-            "weather_data1":weather_data1,
-            "daily_forecast1":daily_forecast1,
-            "weather_data2":weather_data2,
-            "daily_forecast2":daily_forecast2,
-        }
-        return render(request, 'index.html', context)
-             
-    else:
-        return render(request, "index.html")
+            return render(request, "index.html")
+    except requests.exceptions.ConnectionError:
+        return HttpResponse("Please Connect to the Internet")    
     
 def fetch_weather_and_forecast(city,apikey, current_weather_url, forecast_url):
     try:
@@ -44,6 +48,8 @@ def fetch_weather_and_forecast(city,apikey, current_weather_url, forecast_url):
         ####=========== Filling in the lat AND lon place holders ========#####
         forecast_response = requests.get(forecast_url.format(lat, lon, apikey)).json()
         print('forecast_response= ', forecast_response,forecast_url,apikey)
+    
+        
     except  KeyError as e:
         return  {"error":"Invalid City Name"}
         #raise  Exception ("API returned unexpected data structure.") from e
